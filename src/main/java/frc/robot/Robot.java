@@ -50,11 +50,6 @@ public class Robot extends TimedRobot {
   private static double shootSpeed = -1;
   private double raw_speed;
   private double currentDif;
-  // tilt values //TODO find out what these values are for you!
-  protected final double maxAngle = 0.1727; // Can't be less than
-  protected final double minAngle = 0.6425; // Can't be greater than
-  private final double shooterTiltSpeaker = 0.6488;
-  private final double shooterTiltAmp = 0.1599;
 
   // Different auto angle speeds
   private final double normalAngleSpeed = 0.375;
@@ -168,8 +163,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    m_rightMotorLEAD.getEncoder().setPosition(0);
-    m_leftMotorLEAD.getEncoder().setPosition(0);
+
   }
 
   /** This function is called periodically during operator control. */
@@ -207,9 +201,7 @@ public class Robot extends TimedRobot {
 
     // ********************************
     // * SHOOT CODE FOR FLIGHT STICK
-    // ********************************
-    // LIMELIGHT REF
-    // https://docs.limelightvision.io/docs/docs-limelight/tutorials/tutorial-estimating-distance
+    // *******************************
     if (flight.getRawButton(flight1)) {
       m_Shooter.set(shootSpeed);
       wait(500);
@@ -221,14 +213,6 @@ public class Robot extends TimedRobot {
       m_Shooter.stopMotor();
       m_Feeder.stopMotor();
     }
-
-    // ********************************
-    // * ANGLE CODE FOR FLIGHT STICK
-    // ********************************
-    // if i press 7 or 5, go to shooterTiltSpeaker, normalAngleSpeed,
-    // normalAngleSlope
-    // if i press 8 or 3, go to shooterTiltAmp, normalAngleSpeed, normalAngleSlope
-    // else don't move the motor
   }
 
   @Override
@@ -280,12 +264,8 @@ public class Robot extends TimedRobot {
     }
   }
 
-  /**
-   * Gets the current Limelight Z distance.
-   */
   public static double getLimeZ() {
-    var calcs = LimelightHelpers.getTargetPose3d_RobotSpace("limelight");
-    return calcs.getZ();
+    return LimelightHelpers.getTargetPose3d_RobotSpace("limelight").getZ();
   }
 
   /**

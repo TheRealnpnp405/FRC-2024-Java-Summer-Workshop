@@ -27,5 +27,7 @@
   ],
   "java.test.defaultConfig": "WPIlibUnitTests",
   "cSpell.words": [
+    "teleop",
+    "teleoperated"
   ]
 }
